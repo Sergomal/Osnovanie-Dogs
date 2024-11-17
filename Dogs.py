@@ -28,10 +28,14 @@ def show_image():
             img_size = (int(width_spin.get()), int(heigth_spin.get()))
             img.thumbnail(img_size)
             img = ImageTk.PhotoImage(img)
-            new_window = Toplevel()
-            new_window.title("Случайное изображение")
-            lbl = ttk.Label(new_window, image=img)
-            lbl.pack()
+            # new_window = Toplevel()
+            # new_window.title("Случайное изображение")
+            # lbl = ttk.Label(new_window, image=img)
+            # lbl.pack()
+            tab =ttk.Frame(notebook)
+            notebook.add(tab, text=f"Dog_{notebook.index('end')+1}")
+            lbl = ttk.Label(tab, image=img)
+            lbl.pack(padx=5, pady=5)
             lbl.image = img
 
             label.config(image=img)
@@ -69,5 +73,13 @@ heigth_label = ttk.Label(text="Высота")
 heigth_label.pack(side=LEFT, padx=(10, 0))
 heigth_spin = ttk.Spinbox(from_=200, to=500, increment=50, width=5)  # , textvariable=width_label
 heigth_spin.pack(side=LEFT, padx=(0, 10))
+
+top_lvl_window = Toplevel(window)
+top_lvl_window.title("Dogs")
+
+notebook = ttk.Notebook(top_lvl_window)
+notebook.pack(fill=BOTH, expand=True, padx=10, pady=10)
+
+
 
 window.mainloop()
