@@ -11,6 +11,11 @@ def get_dog_image():
         response = requests.get("https://dog.ceo/api/breeds/image/random")
         response.raise_for_status()
         data = response.json()
+
+        print("data = response.json()", data)
+        print("data['message']", data['message'])
+        print("data['status']", data['status'])
+
         return data['message']
     except Exception as e:
         mb.showerror("Ошибка", f"Возникла ошибка при запросе к API {e}")
@@ -32,8 +37,8 @@ def show_image():
             # new_window.title("Случайное изображение")
             # lbl = ttk.Label(new_window, image=img)
             # lbl.pack()
-            tab =ttk.Frame(notebook)
-            notebook.add(tab, text=f"Dog_{notebook.index('end')+1}")
+            tab = ttk.Frame(notebook)
+            notebook.add(tab, text=f"Dog_{notebook.index('end') + 1}")
             lbl = ttk.Label(tab, image=img)
             lbl.pack(padx=5, pady=5)
             lbl.image = img
@@ -68,18 +73,18 @@ width_label = ttk.Label(text="Ширина")
 width_label.pack(side=LEFT, padx=(10, 0))
 width_spin = ttk.Spinbox(from_=200, to=500, increment=50, width=5)  # , textvariable=width_label
 width_spin.pack(side=LEFT, padx=(0, 10))
+width_spin.set(300)
 
 heigth_label = ttk.Label(text="Высота")
 heigth_label.pack(side=LEFT, padx=(10, 0))
 heigth_spin = ttk.Spinbox(from_=200, to=500, increment=50, width=5)  # , textvariable=width_label
 heigth_spin.pack(side=LEFT, padx=(0, 10))
+heigth_spin.set(300)
 
 top_lvl_window = Toplevel(window)
 top_lvl_window.title("Dogs")
 
 notebook = ttk.Notebook(top_lvl_window)
 notebook.pack(fill=BOTH, expand=True, padx=10, pady=10)
-
-
 
 window.mainloop()
