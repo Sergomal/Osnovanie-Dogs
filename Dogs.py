@@ -25,8 +25,15 @@ def show_image():
             response.raise_for_status()
             img_data = BytesIO(response.content)
             img = Image.open(img_data)
-            img.thumbnail((300, 300))
+            img_size = (int(width_spin.get()), int(heigth_spin.get()))
+            img.thumbnail(img_size)
             img = ImageTk.PhotoImage(img)
+            new_window = Toplevel()
+            new_window.title("Случайное изображение")
+            lbl = ttk.Label(new_window, image=img)
+            lbl.pack()
+            lbl.image = img
+
             label.config(image=img)
             label.image = img
         except Exception as e:
@@ -42,7 +49,7 @@ def progress():
 
 window = Tk()
 window.title("Картинки с собачками")
-window.geometry("360x420")
+window.geometry("500x660")
 
 label = ttk.Label()
 label.pack(expand=True, pady=10)
@@ -50,7 +57,17 @@ label.pack(expand=True, pady=10)
 button = ttk.Button(text="Загрузить изображение", command=progress)
 button.pack(fill=BOTH, pady=10)
 
-progress_bar = ttk.Progressbar(mode="determinate", length=300, orient=HORIZONTAL) # , orient=HORIZONTAL
+progress_bar = ttk.Progressbar(mode="determinate", length=300, orient=HORIZONTAL)  # , orient=HORIZONTAL
 progress_bar.pack(fill=BOTH, pady=10)
+
+width_label = ttk.Label(text="Ширина")
+width_label.pack(side=LEFT, padx=(10, 0))
+width_spin = ttk.Spinbox(from_=200, to=500, increment=50, width=5)  # , textvariable=width_label
+width_spin.pack(side=LEFT, padx=(0, 10))
+
+heigth_label = ttk.Label(text="Высота")
+heigth_label.pack(side=LEFT, padx=(10, 0))
+heigth_spin = ttk.Spinbox(from_=200, to=500, increment=50, width=5)  # , textvariable=width_label
+heigth_spin.pack(side=LEFT, padx=(0, 10))
 
 window.mainloop()
